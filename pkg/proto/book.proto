@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "library/book";
+
+service BookManager {
+  rpc Insert(Book) returns (ResponseBM);
+  rpc Update(Book) returns (ResponseBM);
+  rpc Delete(DeleteRequest) returns (ResponseBM);
+}
+
+message Book {
+  int64 id = 1;
+  string title = 2;
+  string author = 3;
+  int32 year = 4;
+  repeated string genres = 5;
+  google.protobuf.Timestamp createAt = 6;
+
+}
+
+message ErrorMessage {
+  string message = 1;
+}
+
+message ResponseBM {
+  int64 TotalSuccess = 1;
+  repeated ErrorMessage Errors = 2;
+}
+
+message DeleteRequest {
+  int64 id = 1;
+}
+

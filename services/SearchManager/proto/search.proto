@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "./search";
+
+service SearchManager {
+  rpc Get(Filter) returns(ResponseSM);
+}
+
+message Book {
+  int64 id = 1;
+  string title = 2;
+  string author = 3;
+  int32 year = 4;
+  repeated string genres = 5;
+  google.protobuf.Timestamp createAt = 6;
+}
+
+message Filter {
+  string title = 1;
+  string author = 2;
+  repeated string genres = 3;
+  int64 size = 4;
+  string sort = 5;
+}
+
+message ErrorMessage {
+  string message = 1;
+}
+
+message ResponseSM {
+  repeated Book books = 1;
+  repeated ErrorMessage Errors = 2;
+}
